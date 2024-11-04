@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+
+    <title>Life Point Tracker</title>
+    <link rel="stylesheet" href="LCstyle.css" />
+  </head>
+  <body>
+    <div
+      class="back-button"
+      onclick="window.location.href='gaming.html'"
+    >
+      Back
+    </div>
+    <!-- Sidebar for game mode and player setup -->
+    <div id="sidebar">
+      <button id="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+      <div id="sidebar-content">
+        <div id="game-mode-buttons">
+          <button onclick="setGameMode('mtg')">Magic the Gathering</button>
+          <button onclick="setGameMode('commander')">Commander</button>
+          <button onclick="setGameMode('yugioh')">Yu-Gi-Oh</button>
+        </div>
+        <div id="player-setup">
+          <button onclick="initializePlayers(2)">1v1</button>
+          <button onclick="initializePlayers(4)">4 Player</button>
+        </div>
+        <hr class="divider" />
+        <button id="start-player-button" onclick="startRandomPlayerSelection()">
+          Randomize Starting Player
+        </button>
+        <hr class="divider" /> <!-- Divider above theme toggle -->
+      
+        <!-- Theme toggle container -->
+        <div id="theme-toggle-container">
+          <label class="theme-toggle">
+            <input type="checkbox" id="theme-toggle" onclick="toggleDarkMode()" />
+            <span class="icon sun">☀️</span>
+            <span class="icon moon">🌙</span>
+          </label>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+
+    <!-- Centered container for player counters -->
+    <div id="players-container"></div>
+
+    <!-- Countdown display for starting player -->
+    <div id="countdown-display"></div>
+
+    <script src="LCscript.js"></script>
+  </body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercise Journal Application</title>
+    <link rel="stylesheet" href="EJstyles.css" />
+  </head>
+  <body>
+    <div class="back-button" onclick="window.location.href='health.html'">
+      Back
+    </div>
+    <div class="page-title">
+      <h1>Exercise Journal</h1>
+    </div>
+    <div id="workouts-container" class="container">
+      <!-- Initial Workout Generation Box -->
+      <div class="workout-box">
+        <!-- Main Exercise Input Table -->
+        <div class="exercise-input">
+          <label for="body-part">Body Part:</label>
+          <select class="body-part">
+            <option value="" disabled selected>--</option>
+            <option value="chest">Chest</option>
+            <option value="back">Back</option>
+            <option value="legs">Legs</option>
+          </select>
+
+          <label for="exercise">Exercise:</label>
+          <select class="exercise">
+            <option value="" disabled selected>--</option>
+            <option value="bench-press">Bench Press</option>
+            <option value="squat">Squat</option>
+            <option value="deadlift">Deadlift</option>
+          </select>
+
+          <label for="variation">Variation:</label>
+          <select class="variation">
+            <option value="" disabled selected>--</option>
+            <option value="standard">Standard</option>
+            <option value="incline">Incline</option>
+            <option value="decline">Decline</option>
+          </select>
+
+          <label for="sets"># of Sets:</label>
+          <input
+            type="number"
+            class="sets"
+            min="1"
+            max="12"
+            value="1"
+            placeholder="Sets"
+          />
+
+          <label for="date">Date:</label>
+          <input type="date" class="date" />
+
+          <button class="generate-sets">Generate Sets</button>
+        </div>
+
+        <!-- Set Details and Notes Section -->
+        <div class="set-details-and-notes hidden">
+          <div class="set-details">
+            <table>
+              <thead>
+                <tr>
+                  <th>Set #</th>
+                  <th>Reps</th>
+                  <th>Weight</th>
+                  <th>Spice</th>
+                </tr>
+              </thead>
+              <tbody class="set-table-body">
+                <!-- JavaScript will populate these rows based on sets number -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Notes Section -->
+          <div class="notes-section">
+            <label for="notes">Notes:</label>
+            <textarea
+              class="notes"
+              placeholder="Enter any additional notes here..."
+            ></textarea>
+          </div>
+        </div>
+
+        <!-- Save Workout Button (initially hidden) -->
+        <button class="save-workout hidden">Save Workout</button>
+      </div>
+    </div>
+
+    <!-- Add New Workout and View Completed Workouts Buttons -->
+    <div class="button-container">
+      <button id="add-new-workout">Add New Workout</button>
+      <button
+        id="view-completed-workouts"
+        onclick="location.href='completed_workouts.html'"
+      >
+        View Completed Workouts
+      </button>
+    </div>
+
+    <script src="EJscript.js"></script>
+  </body>
+</html>

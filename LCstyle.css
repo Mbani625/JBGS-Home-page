@@ -1,0 +1,434 @@
+/* Basic reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f9f9f9;
+  color: #333333;
+  touch-action: manipulation; /* Disable double-tap zoom */
+}
+
+/* General font color for dark mode */
+body.dark-mode {
+  color: #e0e0e0; /* Off-white font color */
+}
+
+/* Dark mode styling for player container text */
+body.dark-mode .player h3,
+body.dark-mode .life-points,
+body.dark-mode .result-display {
+  color: #e0e0e0; /* Off-white for player container text */
+}
+
+/* Dark mode styling for icons */
+body.dark-mode .icon,
+body.dark-mode .control-buttons button {
+  color: #e0e0e0; /* Off-white for icons and button text */
+}
+
+/* Dark mode styling for sidebar icons and buttons */
+body.dark-mode #sidebar,
+body.dark-mode #sidebar button {
+  color: #e0e0e0; /* Off-white for sidebar text and icons */
+}
+
+/* Adjust button background for better contrast in dark mode */
+body.dark-mode .control-buttons button {
+  background-color: #555555; /* Darker button background */
+}
+
+/* Hover effect for buttons in dark mode */
+body.dark-mode .control-buttons button:hover {
+  background-color: #666666; /* Slightly lighter on hover */
+}
+
+/* General Back Button */
+.back-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  padding: 10px 15px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+
+.back-button:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* Sidebar styling */
+#sidebar {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%) translateX(-180px); /* Hidden initially */
+  width: 180px;
+  background-color: #f0f4f8;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+  padding: 8px;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+  z-index: 1000;
+}
+
+#sidebar.open {
+  transform: translateY(-50%) translateX(0); /* Slide in when open */
+}
+
+#sidebar-toggle {
+  position: absolute;
+  top: 10px;
+  left: 180px; /* Adjusted to align with sidebar */
+  background-color: #a0c1d1;
+  border: none;
+  color: #333;
+  font-size: 28px;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+}
+
+#sidebar-content {
+  padding: 10px;
+}
+
+/* Sidebar button styling for light mode */
+#sidebar button {
+  background-color: #a0c1d1; /* Light mode background color */
+  color: #333333; /* Light mode text color */
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* Sidebar button styling for dark mode */
+body.dark-mode #sidebar button {
+  background-color: #555555; /* Dark mode background color */
+  color: #e0e0e0; /* Off-white text color for dark mode */
+}
+
+/* Hover effect for sidebar buttons in dark mode */
+body.dark-mode #sidebar button:hover {
+  background-color: #666666; /* Slightly lighter on hover */
+}
+
+#game-mode-buttons button,
+#player-setup button,
+#start-player-button {
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+  padding: 8px;
+  font-size: 16px;
+  background-color: #a0c1d1;
+  color: #333333;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  z-index: 1002; /* Ensure button is on top */
+}
+
+#game-mode-buttons button:hover,
+#player-setup button:hover,
+#start-player-button:hover {
+  background-color: #91b3c3;
+}
+
+/* Divider line above the Randomize Starting Player button */
+.divider {
+  border: none;
+  border-top: 2px solid #d9e2ec;
+  margin: 10px 0;
+}
+
+/* Player container */
+#players-container {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  width: 70%; /* 80% width on large screens */
+  max-width: 1200px;
+  text-align: center;
+  position: relative;
+}
+
+/* Medium screens (tablets in landscape) */
+@media (max-width: 900px) {
+  #players-container {
+    width: 80%; /* Scale to 90% width */
+    grid-template-columns: repeat(2, 1fr); /* Still two columns */
+  }
+}
+
+/* Small screens (phones in landscape and portrait) */
+@media (max-width: 600px) {
+  #players-container {
+    width: 90%; /* Scale to full width on small screens */
+    grid-template-columns: 1fr; /* Stack vertically */
+    padding: 10px;
+  }
+}
+
+/* Countdown display styling without background overlay */
+#countdown-display {
+  font-size: 48px;
+  font-weight: bold;
+  color: #4a4a4a;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1; /* Lower z-index to stay behind the button */
+}
+
+/* Player styling */
+.player {
+  background-color: #ffffff;
+  border: 2px solid #d9e2ec;
+  border-radius: 12px;
+  padding: 5px 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+}
+
+.player h3 {
+  color: #4a4a4a;
+  font-weight: 500;
+}
+
+.life-points {
+  font-size: 36px;
+  font-weight: bold;
+  color: #4a4a4a;
+  margin: 0;
+}
+
+/* Control buttons styling */
+.control-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: space-evenly;
+}
+
+/* Control buttons styling for light mode */
+.control-buttons button {
+  width: 57.5px;
+  height: 57.5px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #333333; /* Light mode text color */
+  background-color: #c0d6e4; /* Light mode background */
+  border: none;
+  border-radius: 10px;
+  transition: background-color 0.2s, color 0.2s, transform 0.1s;
+}
+
+/* Dark mode styling for buttons inside player containers */
+body.dark-mode .control-buttons button {
+  color: #e0e0e0; /* Dark mode text color */
+  background-color: #555555; /* Dark mode background */
+}
+
+/* Hover effect for buttons in dark mode */
+body.dark-mode .control-buttons button:hover {
+  background-color: #666666; /* Darker shade for hover */
+}
+
+/* Icon background images for dice and coin flip buttons */
+.coin-flip-button {
+  background-image: url("path-to-coin-icon.png"); /* Replace with actual path */
+  background-size: 75%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.d6-button {
+  background-image: url("path-to-d6-icon.png"); /* Replace with actual path */
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.d20-button {
+  background-image: url("path-to-d20-icon.png"); /* Replace with actual path */
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Hover effects for icon buttons */
+.dice-button:hover,
+.coin-flip-button:hover {
+  background-color: #91b3c3;
+}
+
+/* Result display styling */
+.result-display {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #4a4a4a;
+  text-align: center;
+}
+
+/* Darkened player styling */
+.player.darkened {
+  background-color: rgba(0, 0, 0, 0.4);
+  color: rgba(255, 255, 255, 0.5);
+  transition: background-color 0.5s, color 0.5s;
+}
+
+/* Highlighted player during selection */
+.player.selected {
+  background-color: #ffeb3b;
+  transition: background-color 0.25s ease-in-out;
+}
+
+/* Keyframe for light mode */
+@keyframes highlight-fade-light {
+  0% {
+    background-color: #ffeb3b; /* Yellow highlight */
+  }
+  100% {
+    background-color: #ffffff; /* Light mode player container color */
+  }
+}
+
+/* Keyframe for dark mode */
+@keyframes highlight-fade-dark {
+  0% {
+    background-color: #ffeb3b; /* Yellow highlight */
+  }
+  100% {
+    background-color: #333333; /* Dark mode player container color */
+  }
+}
+
+/* Fade animation for the player container based on mode */
+.player.fade-light {
+  animation: highlight-fade-light 2s forwards;
+}
+
+.player.fade-dark {
+  animation: highlight-fade-dark 2s forwards;
+}
+
+.player.selected {
+  background-color: #ffeb3b;
+}
+
+.player.fade {
+  animation: highlight-fade 2s forwards; /* Fade back to original color over 2 seconds */
+}
+
+/* Divider line above the Randomize Starting Player button and Theme Toggle */
+.divider {
+  border: none;
+  border-top: 2px solid #d9e2ec;
+  margin: 10px 0;
+}
+
+/* Theme toggle container styling */
+#theme-toggle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  background-color: #a0c1d1; /* Matching color with other buttons */
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.theme-toggle input[type="checkbox"] {
+  display: none;
+}
+
+.theme-toggle .icon {
+  font-size: 24px;
+  padding: 0 8px;
+  transition: filter 0.3s ease;
+}
+
+/* Default light mode - sun in color, moon in grayscale */
+.theme-toggle .sun {
+  filter: grayscale(0%); /* Colorful */
+}
+
+.theme-toggle .moon {
+  filter: grayscale(100%); /* Grayscale */
+}
+
+/* Dark mode - moon in color, sun in grayscale */
+.theme-toggle input[type="checkbox"]:checked ~ .sun {
+  filter: grayscale(100%); /* Grayscale when not selected */
+}
+
+.theme-toggle input[type="checkbox"]:checked ~ .moon {
+  filter: grayscale(0%); /* Colorful when selected */
+}
+
+/* Dark mode styling */
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+#sidebar.dark-mode {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}
+
+.player.dark-mode {
+  background-color: #333333;
+  border-color: #444444;
+  color: #e0e0e0;
+}
+
+.control-buttons button.dark-mode {
+  background-color: #555555;
+  color: #e0e0e0;
+}
+
+#countdown-display.dark-mode {
+  color: #ffffff;
+}
+
+/* Dark mode - Selected player during randomization */
+body.dark-mode .player.selected {
+  background-color: #ffb300; /* Bright yellow for visibility in dark mode */
+  color: #333333;
+}

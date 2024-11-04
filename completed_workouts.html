@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Completed Workouts</title>
+    <link rel="stylesheet" href="EJstyles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Completed Workouts</h1>
+
+      <div id="workout-list" class="workout-list">
+        <!-- List of completed workouts will be populated here by JavaScript -->
+      </div>
+
+      <!-- Clear Exercises Button -->
+      <button id="clear-exercises">Clear Exercises</button>
+
+      <!-- Button to return to the main screen -->
+      <button id="back-to-main" onclick="location.href='EJindex.html'">
+        Back to Main Screen
+      </button>
+
+      <!-- Export Button -->
+      <button id="export-button">Export</button>
+
+      <!-- Modal for export options -->
+      <div id="export-modal" class="modal hidden">
+        <div class="modal-content">
+          <h2>Export Options</h2>
+          <!--<button id="export-email">Export to Email</button>
+          <button id="export-drive">Export to Google Drive</button>-->
+          <button id="export-excel">Export to Excel</button>
+          <button id="close-modal">Close</button>
+        </div>
+      </div>
+    </div>
+    <script src="completed_workouts.js"></script>
+  </body>
+</html>

@@ -1,0 +1,338 @@
+/* General Styling */
+body {
+  font-family: "Garamond", serif;
+  color: #f4e2d1;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+  background: radial-gradient(circle, #001e3c 10%, #0a0a2a 60%, #000);
+  background-size: cover;
+  background-repeat: no-repeat;
+  touch-action: manipulation; /* Prevent double-tap zoom */
+}
+
+/* Results Container Styling */
+.results {
+  margin-top: 20px;
+  background-color: rgba(61, 30, 23, 0.5);
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+/* General Back Button */
+.back-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  padding: 10px 15px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+  z-index: 1000;
+}
+
+.back-button:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* Mobile Styling */
+@media (max-width: 600px) {
+  .dice-selection {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .dice-column {
+    margin: 0;
+  }
+
+  /* Add margin to the results container on mobile */
+  .results {
+    margin: 20px 10px; /* Adds space around results on mobile */
+  }
+}
+
+/* Sparkling Stars */
+@keyframes sparkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.stars {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background-color: white;
+  border-radius: 50%;
+  animation: sparkle 2s infinite;
+}
+
+/* Solid Stars with Random Brightness and Shadow */
+.solid-star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background-color: white;
+  border-radius: 50%;
+  opacity: var(--star-brightness);
+  box-shadow: 0 0 var(--star-shadow-size) rgba(255, 255, 255, 0.6);
+}
+
+/* Shooting Stars with Increased Brightness and Trail */
+.shooting-star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.9;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+    0 0 20px rgba(255, 255, 255, 0.6);
+  animation: shooting-star 2s ease-in-out;
+}
+
+@keyframes shooting-star {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+      0 0 20px rgba(255, 255, 255, 0.6);
+  }
+  50% {
+    opacity: 0.8;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6),
+      0 0 30px rgba(255, 255, 255, 0.4);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--move-x), var(--move-y)) scale(0.8);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.4),
+      0 0 40px rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* Explosion on Star Click */
+@keyframes explode {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+.explode-star {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: white;
+  border-radius: 50%;
+  animation: explode 0.6s forwards;
+}
+
+/* Center Wrapper for Flexbox Centering */
+.center-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding-bottom: 20px;
+  position: relative;
+  z-index: 1;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+/* Container Styling */
+.container {
+  max-width: 700px;
+  width: 100%;
+  background-color: rgba(61, 30, 23, 0.5);
+  padding: 40px;
+  border-radius: 10px;
+}
+
+/* Dice Selection Styling */
+.dice-selection {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.dice-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* Dice Button Styling with Shadow and Bold Font */
+.dice-button {
+  background-color: #c0392b;
+  border: 2px solid #e74c3c;
+  padding: 10px 15px;
+  color: #fceabb;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  transition: border-color 0.5s ease-in-out;
+  animation: fadeBorder 2s infinite;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+}
+.dice-button:hover {
+  background-color: #e74c3c;
+}
+
+/* Button Border Animation */
+@keyframes fadeBorder {
+  0% {
+    border-color: #c0392b;
+  }
+  50% {
+    border-color: #f39c12;
+  }
+  100% {
+    border-color: #c0392b;
+  }
+}
+
+/* Quantity Input Styling */
+.quantity-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #7f2b25;
+  padding: 5px;
+  margin: 10px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 60px;
+  border: 2px solid #e74c3c;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+  transition: border-color 0.5s ease-in-out;
+  animation: fadeBorder 2s infinite;
+}
+
+.quantity-input input {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  border-radius: 10px;
+  border: 2px solid #e74c3c;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+  transition: border-color 0.5s ease-in-out;
+  animation: fadeBorder 2s infinite;
+}
+
+/* Adjusted Plus and Minus Buttons */
+.quantity-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
+
+.quantity-buttons button {
+  background-color: #f39c12;
+  border: none;
+  color: #2e1a17;
+  font-size: 20px;
+  cursor: pointer;
+  width: 100%;
+  height: 40px;
+  border-radius: 10px;
+  margin: 5px 0;
+}
+
+/* Center Roll Dice Button in the Table */
+.roll-button-row {
+  margin-top: 20px;
+}
+
+.roll-dice {
+  background-color: #c0392b;
+  color: #fceabb;
+  font-weight: bold;
+  border: 2px solid #e74c3c;
+  border-radius: 10px;
+  padding: 10px;
+  transition: background-color 0.3s ease;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+  margin: auto;
+  width: 200px;
+  display: block;
+}
+.roll-dice:hover {
+  background-color: #e74c3c;
+}
+
+/* Result Table Styling */
+.results {
+  margin-top: 20px;
+  background-color: rgba(61, 30, 23, 0.5);
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  border: 1px solid rgb(231, 76, 60, 0.6);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+  transition: border-color 0.5s ease-in-out;
+  animation: fadeBorder 2s infinite;
+}
+
+table {
+  width: 100%;
+  color: #f4e2d1;
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+th,
+td {
+  padding: 5px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+/* Highlight for Highest Roll */
+.highlight {
+  color: #f39c12;
+  font-weight: bold;
+  background-color: rgba(243, 156, 18, 0.2);
+}
+
+/* Responsive Dice Button Layout for Mobile */
+@media (max-width: 600px) {
+  .dice-selection {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .dice-column {
+    margin: 0;
+  }
+}
